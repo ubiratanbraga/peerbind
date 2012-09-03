@@ -1,0 +1,1043 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Peerbind - Visitors: 2</title>
+    <link rel="stylesheet" type="text/css" href="index_arquivos/styles2.css">
+    <link rel="SHORTCUT ICON" href="http://peerbind.com/favicon.ico">
+    <script src="index_arquivos/jquery-1.js"></script>
+    <!-- Use this if you like - its cloudfrounted for distribution. -->
+    <script src="index_arquivos/jQuery.js"></script>
+    <script type="text/javascript" src="index_arquivos/jquery-ui.js"></script>
+<!--
+Copyright 2011 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+Licensed under the Amazon Software License (the "License"). You may 
+not use this file except in compliance with the License. A copy of 
+the License is located at
+
+http://aws.amazon.com/asl/
+
+or in the "license" file accompanying this file. This file is 
+distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, express or implied. See the License for the specific language governing permissions and limitations under the License. 
+
+-->
+</head>
+
+<body data-twttr-rendered="true">
+<div class="container">
+  <div class="header">
+    <ul>
+      <li class="logo">
+        <div></div>
+      </li>
+      <li class="download">
+        <div class="btn clearfix"><a href="http://js.peerbind.com/jQuery.peerbind.js"></a></div>
+        <br clear="all">
+        <div class="release"></div>
+      </li>
+    </ul>
+  </div>
+  <div class="social">Let people know about Peerbind: <iframe data-twttr-rendered="true" title="Twitter Tweet Button" style="width: 55px; height: 20px;" class="twitter-share-button twitter-count-none" src="index_arquivos/tweet_button.html" allowtransparency="true" frameborder="0" scrolling="no"></iframe><script type="text/javascript" src="index_arquivos/widgets.js"></script><iframe src="index_arquivos/like.html" style="border:none; overflow:hidden; width:80px; height:21px;position:relative;top:0px" allowtransparency="true" frameborder="0" scrolling="no"> </iframe></div>
+  <div class="content">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="3Columns">
+        <li class="col1">
+          <h1>What is Peerbind</h1>
+        </li>
+        <li class="col2">
+          <p>Peerbind is a new method of event binding that converts a webpage into a massively interconnected website.</p>
+          <p class="spaceTop">Peerbind adds an event listener to an element, however the triggered events will be shared with all visitors in the <a href="#peerset">peerset</a>. The default <a href="#peerset">peerset</a> contains visitors of the same page.</p>
+          <p class="spaceTop">To best appreciate the examples below, be 
+sure to open two different browsers - either on different machines or on
+ the same machine but whose maker is different (like Firefox and 
+Safari).</p>
+          <p class="spaceTop">A public server is available so you can get started! You can always launch your own later. (If ours is too slow see <a href="#configuration">documentation</a> for the built-in simple migration details.)</p>
+        </li>
+        <li class="col3">
+        <!--
+          <h2>Other stuff you may need</h2>
+          <ul class="otherStuff clearfix">
+            <li>
+              <h3 class="ec2">Server for EC2<a href="#">download</a></h3>
+              <div>Using <a href="">AWS Elastic Beanstalk</a> you can run your own Peerbind server.  See the <a href="#configuration">documentation</a> for details.</div>
+            </li>
+            <li><br />
+              <h3 class="iphone"a>Server for iPhone <a href="#" disabled>download</a> </h3>
+              <div>Coming soon.</div>
+            </li>
+          </ul>
+        -->
+        </li>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4">
+          <h1>How it works</h1>
+        </li>
+        <li class="col2 col5">
+          <p>First some code...</p>
+          <div class="codeTop spaceTop"></div>
+          <div class="codeMiddle"><pre><code>
+&lt;script src="http://code.jquery.com/jquery-1.4.4.js"&gt;&lt;/script&gt;
+&lt;script src="http://js.peerbind.com/jQuery.peerbind.js"&gt;&lt;/script&gt;
+... 
+
+Type a message: &lt;input type="text"&gt; 
+&lt;div id="chats"&gt;&lt;/div&gt;
+
+$("input").peerbind("change", {
+    peer:  function(e) { addChat(e.srcPeer + ": " + e.peerInfo.value);},
+    local: function(e) { addChat("You: " + e.peerInfo.value); $(this).val("");}
+}); 
+
+function addChat(msg) {
+  $("#chats").prepend("&lt;br&gt;").prepend($("&lt;span/&gt;").text(msg));
+}
+</code></pre>
+</div>
+          <div class="codeBottom">
+          <div><img style="display: none;" src="index_arquivos/btn-showme.png" alt="See Code" class="seeCode" whereto="chat.html" height="40" width="115"></div>
+          <div><img src="index_arquivos/btn-copycode.png" alt="Copy Code" class="copyCode" height="40" width="115"></div></div>
+        </li>
+        <li class="col1 col4 tryIt">
+          <h1>Try it</h1>
+        </li>
+        <li class="col2 col5">
+		  <div class="typeMessage">
+             <span> Type a message:</span> <input id="chatinput" type="text">
+          </div>
+               
+          <div id="chats"><div id="wait">Waiting for messages...</div></div>
+              
+              <script>
+                var numChats = 0;
+                $("#chatinput").peerbind("change", function(e) {
+                  if ( e.srcPeer ) 
+                    addChat(false, e.srcPeer + ": " + e.peerInfo.value);
+                  else {
+                    addChat(true,e.peerInfo.value); 
+                    $(this).val("");
+                  }
+                }).keyup(function(e) {
+                    if ( e.keyCode == "13" && $.browser.msie && $.browser.version > 8 ) {
+                        $(this).trigger("change");
+                    }
+                }); 
+
+                function addChat(me, msg) {
+                  if ( numChats > 9 ) 
+                    $(".chatResponse:last").remove();
+
+                  numChats++;
+
+                  var chat = $("<div class='chatResponse'></div>");
+                  if ( me ) {
+                    $("<strong>You: </strong>").appendTo(chat);
+                  }
+
+                  $("<span class='msg'></span>").appendTo(chat);
+
+                  $("#chats").prepend(chat);
+                  $('.msg',chat).text(msg);
+
+                  $("#wait").remove();
+                }
+              </script>
+ 
+        </li>
+        <li class="col1 col4">
+            <h1>Explanation</h1>
+        </li>
+        <li class="col2 col5">
+          <p>When the script binds an event, the Peerbind library 
+creates a unique identifier and registers with the peerbind server.  
+From that point forward all "change" events are broadcast amongst the <a href="#peerset">peerset</a>.</p>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4">
+          <h1>Custom Events</h1>
+        </li>
+        <li class="col2 col5">
+          <p>Peerbind makes it easy to pass around custom events.  Try this:
+          </p><div class="codeTop spaceTop"></div>
+          <div class="codeMiddle"><pre><code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="http://code.jquery.com/jquery-1.4.4.js"&gt;&lt;/script&gt;
+  &lt;script src="http://js.peerbind.com/jQuery.peerbind.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  Visitors: &lt;span&gt;0&lt;/span&gt;
+  &lt;script&gt;
+    var visitors = 0;
+    $(document.body).peerbind("arrived", function(e) {
+        if ( e.srcPeer ) {
+            visitors++;
+            $("div").text(visitors); 
+        }
+    }); 
+
+    $(document.body).peertrigger("arrived");
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+          <div class="codeBottom">
+          <div><img style="display: none;" src="index_arquivos/btn-showme.png" alt="See Code" class="seeCode" whereto="visitors.html" height="40" width="115"></div>
+          <div><img src="index_arquivos/btn-copycode.png" alt="Copy Code" class="copyCode" height="40" width="115"></div>
+          </div>
+        </li>
+        <li class="col1 col4 tryIt">
+          <h1>Try it</h1>
+        </li>
+        <li class="col2 col5">
+		  <div class="typeMessage">
+             <span> Visitors (since you arrived): </span><span id="viscount">2</span>
+          </div>
+              <script>
+                var visitors = 0;
+                $(document.body).peerbind("arrived", function(e) {
+                  if ( e.srcPeer ) {
+                    visitors++;
+                    $("#viscount").text(visitors); 
+                     try {
+                        $("title").text("Peerbind - Visitors: " + visitors);
+                     } catch(e) {}
+                  }
+                }); 
+                $(document.body).peertrigger("arrived");
+              </script>
+        </li>
+      </ul>
+    </div>
+    <div class="bottom"></div>
+  </div>
+  
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>Bundling Events</h1></li>
+        <li class="col2 col5">
+         <p>
+          </p><div class="docsection"></div>
+          <p class="docpara">
+            Given the networked nature of peerbind, high-volume mouse 
+events can become choppy, or unstable, derailing the experience.  We 
+have solved this problem by creating a new event, called "peerbundle". 
+Peerbundle allows Peerbind to manage a group of events like, "mousedown,
+ mousemove, mouseup".  
+          </p>
+          <p class="docpara">
+            The peerbundle call can group multiple events into a single 
+message.  You can specify an event to start the bundle (e.g. mousedown),
+            events to include in the bundle (e.g. mousemove), and an 
+event to terminate the bundle (e.g. mouseup).  
+          </p>
+          <p class="docpara">
+            You can also specify that the bundle automatically send at a
+ specific frequency (e.g. every 100 milliseconds), and events are 
+discarded
+            if they come too close together (e.g. discard mousemove 
+events that occur less than 25 milliseconds apart).  
+          </p>
+          <p class="docpara">
+            Timing of the original events is maintained by default (e.g.
+ a mouse drag that took place over five seconds would be replayed over 
+five seconds.)  To disable timing - clear the 'timeing' flag.
+          </p>
+          <p class="docpara">
+            Unlike peerbind, peerbundle does not allow you to specify 
+bound functions to be called on the events.  Instead, use the regular 
+jQuery bind function.  Bound functions
+            will be called on both the sender and the receiver.
+          </p>
+          <p class="docexample">
+            <span class="examplename"><strong>Example</strong>:</span> Using peerbundle to share a drawing canvas.<a name="drawing"></a>
+          </p><div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre><code>
+  &lt;canvas id="can" width="500" height="500"&gt;&lt;/canvas&gt;
+  &lt;script&gt;
+    var ctx = document.getElementById("can").getContext("2d");
+    var drawing = false;
+    var lastMouse;
+
+    $("#can").peerbundle({
+        startEvent:   "mousedown touchstart",
+        event:        "mousemove touchmove",
+        endEvent:     "mouseup touchend",
+        collapseTime: 25,
+        timing:       false
+    }).bind("mousedown touchstart", function(e) {
+        e.preventDefault();
+        drawing   = true;
+        lastMouse = getXY(e);
+    }).bind("mousemove touchmove", function(e) {
+        e.preventDefault();
+        if ( drawing ) {
+            ctx.beginPath();
+            ctx.moveTo(lastMouse.x, lastMouse.y);
+            lastMouse = getXY(e);
+            ctx.lineTo(lastMouse.x, lastMouse.y);
+            ctx.stroke();
+        }
+    }).bind("mouseup touchend", function(e) { e.preventDefault(); drawing = false; });
+    
+    function getXY(e) {
+        var posE = e;
+        if ( e.originalEvent &amp;&amp; e.originalEvent.touches ) {
+            posE = e.originalEvent.touches[0];
+        }
+
+        if (e.srcPeer) {
+            return {x:posE.pageX-e.peerInfo.currentTargetOffset.left, y:posE.pageY-e.peerInfo.currentTargetOffset.top }
+        } else {
+            var offset = $(e.currentTarget).offset();
+            return {x:posE.pageX-offset.left,y:posE.pageY-offset.top};
+        }
+    }
+  &lt;/script&gt;
+</code></pre></div>
+            <div class="codeBottom">
+            <div><img style="display: none;" src="index_arquivos/btn-showme.png" alt="See Code" class="seeCode" whereto="bundle.html" height="40" width="115"></div>
+          <div><img src="index_arquivos/btn-copycode.png" alt="Copy Code" class="copyCode" height="40" width="115"></div>
+          </div>
+          <p></p>
+        </li>
+        <li class="col1 col4 tryIt">
+          <h1>Try it</h1>
+        </li>
+        <li class="col2 col5">
+           <canvas id="can" width="725" height="300" style="border: solid 1px black; cursor: crosshair; background: white"></canvas>
+<script>
+  $(function() {
+    var colors = ['red','green','blue','orange','cyan','magenta'];
+    var colorIndex = 0;
+    var contexts = {me:{color:'black',drawing: false}}
+    var canvas = document.getElementById("can");
+    var ctx = canvas.getContext("2d");
+    ctx.font = "15px Arial,Helvetica,sans-serif";
+    ctx.fillText("Draw on me", 10, 20);
+    $("#can").peerbundle({
+        startEvent: "mousedown touchstart",
+        event: "mousemove touchmove",
+        endEvent: "mouseup touchend",
+        sendTime: 100,
+        collapseTime: 15,
+        timing: true
+    }).bind("mousedown touchstart", function(e){
+        e.preventDefault();
+        var context = getContext(e);
+        context.drawing = true;
+        context.lastMouse = getXY(e);
+    }).bind("mousemove touchmove", function(e) {
+        e.preventDefault();
+        var context = getContext(e);
+        if(context.drawing){
+            ctx.strokeStyle = context.color;
+            ctx.beginPath();
+            ctx.moveTo(context.lastMouse.x,context.lastMouse.y);
+            context.lastMouse = getXY(e);
+            ctx.lineTo(context.lastMouse.x,context.lastMouse.y);
+            ctx.stroke();
+        }
+    }).bind("mouseup touchend", function(e) {
+        e.preventDefault();
+        var context = getContext(e);
+        if(context.drawing && e.type != "touchend"){ // touchend events don't have reliable mouse coordinates
+            ctx.strokeStyle = context.color;
+            ctx.beginPath();
+            ctx.moveTo(context.lastMouse.x,context.lastMouse.y);
+            context.lastMouse = getXY(e);
+            ctx.lineTo(context.lastMouse.x,context.lastMouse.y);
+            ctx.stroke();
+        }   
+        context.drawing = false;
+    });
+    
+    function getContext(e) {
+        var peer = e.srcPeer || 'me';
+        if (!contexts[peer]) {
+            contexts[peer] = {color: colors[colorIndex++ % colors.length], drawing: false}
+        }
+        return contexts[peer];
+    }
+
+    function getXY(e) {
+        var posE = e;
+        if ( e.originalEvent && e.originalEvent.touches ) {
+            posE = e.originalEvent.touches[0];
+        }
+
+        if (e.srcPeer) {
+            return {x:posE.pageX-e.peerInfo.currentTargetOffset.left, y:posE.pageY-e.peerInfo.currentTargetOffset.top }
+        } else {
+            var offset = $(e.currentTarget).offset();
+            return {x:posE.pageX-offset.left,y:posE.pageY-offset.top};
+        }
+    }
+    
+  });
+</script>
+        </li>
+        <li class="col1 col4">
+          &nbsp;
+        </li>
+        <li class="col2 col5">
+          <p class="docpara">
+            <strong>Note:</strong>  The sample code above is a simplified version of the demo.  The demo includes code to associate
+            peerbundles with peers to prevent them from interfering with one another, and to assign a color.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>A New Event Type</h1></li>
+        <li class="col2 col5">
+         <p>
+          </p><div class="docsection"></div>
+          <p class="docpara">
+            Introducing "mousebundle". Mousebundle is an alternative to 
+peerbundle, specifically designed for replaying drag and drop events.  
+It uses a new event, called "mousebundle". Mousebundle allows Peerbind 
+to manage a group of events like, "mousedown, mousemove, mouseup".  
+          </p>
+          <p class="docpara">
+            To use it bind the "mousebundle" eventType to an element and
+ replay those events using the "peerbundleplay" method in the handler.  
+          </p>
+          <p class="docexample">
+            <span class="examplename"><strong>Example</strong>:</span> Bind and replay the "mousebundle" event.
+          </p><div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre>var colors = "Azure,Bisque,Black,Blue,BlueViolet".split(/,/);
+
+for ( var i = 0; i &lt; 5; i++ ) {
+    $('&lt;div/&gt;',{
+         css:{
+            height:50,
+            width:50,
+            position:"absolute",
+            padding:5,
+            left:((i%10) * 100),
+            top:Math.floor(i/10) * 100,
+            backgroundColor:colors[i%colors.length]
+        }
+    }).addClass("box").text("dragme").appendTo(document.body);
+}
+
+$(".box").peerbind("mousebundle",function(e) {
+    if ( e.srcPeer ) {
+        $(this).peerbundleplay(e);
+    }
+}).draggable();
+            </pre></div>
+            <div class="codeBottom">
+            <div><img style="display: none;" src="index_arquivos/btn-showme.png" alt="See Code" class="seeCode" whereto="mouse.html" height="40" width="115"></div>
+          <div><img src="index_arquivos/btn-copycode.png" alt="Copy Code" class="copyCode" height="40" width="115"></div>
+          </div>
+          <p></p>
+        </li>
+        <li class="col1 col4 tryIt">
+          <h1>Try it</h1>
+        </li>
+        <li class="col2 col5" style="height:80px;" id="boxeshere">
+<script>
+var colors = "#686868".split(/,/);
+
+for ( var i = 0; i < 7; i++ ) {
+    var numDiv = $('<div/>',{
+         id:"box"+i,
+         css:{
+            height:55,
+            width:55,
+            position:"absolute",
+            padding:5,
+            cursor:"move",
+            left:((i%10) * 100) + $("#boxeshere").offset().left + 20,
+            top:$("#boxeshere").offset().top,
+            backgroundColor:colors[i%colors.length]
+        }
+    }).addClass("box").attr("bxct",i).text("drag me").appendTo("#boxeshere");
+
+    numDiv.append($("<div/>",{
+        css: {
+           width:20,
+           margin:"auto",
+           paddingTop: 14,
+           fontSize: 40
+        }
+    }).text(i+1));
+}
+
+function watchBoxes() {
+    $(".box").each(function(i) {
+        if ( !$(this).attr("played") ) {
+            $(this).animate({
+                left:((i%10) * 100) + $("#boxeshere").offset().left + 20,
+                top:$("#boxeshere").offset().top
+            });
+        }
+    });
+}
+
+setInterval(watchBoxes, 1000);
+
+var latestz = 1;
+$(".box").mousedown(function(){
+    $(this).stop().attr("played","1").css({
+        zIndex: latestz++,
+        border:"1px solid #1491CB" 
+    });
+}).peerbind("mousebundle",function(e) {
+    if ( e.srcPeer ) {
+        $(this).attr("played","1").peerbundleplay(e);
+    }
+}).draggable();
+</script><div bxct="0" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 323.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box0">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">1</div></div><div bxct="1" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 423.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box1">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">2</div></div><div bxct="2" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 523.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box2">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">3</div></div><div bxct="3" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 623.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box3">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">4</div></div><div bxct="4" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 723.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box4">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">5</div></div><div bxct="5" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 823.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box5">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">6</div></div><div bxct="6" class="box ui-draggable" style="height: 55px; width: 55px; position: absolute; padding: 5px; cursor: move; left: 923.5px; top: 3905.92px; background-color: rgb(104, 104, 104);" id="box6">drag me<div style="width: 20px; margin: auto; padding-top: 14px; font-size: 40px;">7</div></div>
+        </li>
+      </ul>
+
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4">
+          <h1>New Methods</h1>
+        </li>
+        <li class="col2 col5">
+          <p> </p>
+          <div class="docMiddle secondaryCall"> 
+            <div class="funcname">.peerbind( eventType, [eventData], handler(eventObject)) Returns: jQuery</div>
+            <div class="funcdef">
+                Registers the event for broadcast and attaches a handler for received events for the elements.
+            </div>
+            <div class="funcvariant">.peerbind( eventType, [eventData], handler(eventObject))</div>
+            <div class="variantparam">
+                <span class="paramname">eventType </span>A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">eventData</span> A map of data that will be passed to the event handler.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">handler(eventObject)</span> A function to execute each time the event is triggered.
+            </div>
+            <div class="funcvariant">.peerbind( eventType, [eventData], handlerObject)</div>
+            <div class="variantparam">
+                <span class="paramname">eventType</span> A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">eventData</span> A map of data that will be passed to the event handler.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">handlerObject</span> A map containing functions for "local" and "peer" events and an optional "data" object that will be passed to the handlers.
+            </div>
+            <p class="docdiscussion">
+        * For more information on the underlying "bind" function provided by jQuery see: <a href="http://api.jquery.com/bind/">http://api.jquery.com/bind/</a>
+            </p>
+          </div>
+          <div class="docMiddle secondaryCall"> 
+            <div class="funcname">.peertrigger( eventType, [eventData], peerTarget) Returns: jQuery</div>
+            <div class="funcdef">
+                Execute all handlers and behaviors attached to the matched elements for the given event type.
+            </div>
+            <div class="funcvariant">.peertrigger( eventType, [eventData], peerTarget)</div>
+            <div class="variantparam">
+                <span class="paramname">eventType </span>A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">eventData</span> A map of data that will be passed to the event handler.
+            </div>
+            <div class="variantparam">
+                <span class="paramname">peerTarget</span> optional guid of peer who should receive the event.
+            </div>
+            <p class="docdiscussion">
+        * For more information on the underlying "trigger" function provided by jQuery see: <a href="http://api.jquery.com/trigger/">http://api.jquery.com/trigger/</a>
+            </p>
+          </div>
+          <div class="docMiddle secondaryCall"> 
+            <div class="funcname">.peerunbind( eventType ) Returns: jQuery</div>
+            <div class="funcdef">
+                Removes peerbound event from bound element of type 
+eventType.  Warning: This method differs from jQuery "unbind".
+            </div>
+            <div class="funcvariant">.peerunbind( eventType )</div>
+            <div class="variantparam">
+                <span class="paramname">eventType </span>A string containing one or more JavaScript event types, such as "click" or "submit," or custom event names.
+            </div>
+          </div>
+          <div class="docMiddle secondaryCall"> 
+            <div class="funcname">.peerregister( callback ) Returns: jQuery</div>
+            <div class="funcdef">
+                This function will ensure "callback" is executed when 
+peerbind has successfully registered with the server.  This function 
+also allows the client to re-register with the server.  (Userful when 
+the peerset has changed.)
+            </div>
+            <div class="funcvariant">.peerregister( callback )</div>
+            <div class="variantparam">
+                <span class="paramname">callback</span> Function to be called when peerbind has successfully registered with the server.
+            </div>
+          </div>
+          <div class="docMiddle secondaryCall"> 
+            <div class="funcname">.peerbundle( config ) Returns: jQuery</div>
+            <div class="funcdef">
+                This function configures a peerbundle.  This will bundle
+ up multiple events into a small number of messages, and replay them, 
+optionally retaining timeing information.
+            </div>
+            <div class="funcvariant">.peerbundle( config )</div>
+            <div class="variantparam">
+                <span class="paramname">config</span> An Object containing the configuration for the peerbundle.  Most parameters are optional.  The parameters are:
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">startevent</span> A string containing one or more JavaScript event types, such as "mousedown" or custom event names.
+                The bundle will start when a <strong>startevent</strong> is received.  If startevent is omitted, the bundle will start when the first event specified by the <strong>event</strong> parameter is received.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">event</span> A string containing one or more JavaScript event types, such as "mousemove" or custom event names.
+                The bundle will collect these events after a <strong>startevent</strong> is received until an <strong>endevent</strong> is received.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">endevent</span> A string containing one or more JavaScript event types, such as "mouseup" or custom event names.
+                After a <strong>startevent</strong> is received, the bundle will collect <strong>event</strong>s until an <strong>endevent</strong> is received.
+                At that time, the bundle will be sent and closed.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">startsel</span> An optional jQuery selector for the elements on which <strong>startevent</strong> is bound.
+                If omitted, the selector to which peerbundle was passed is used.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">eventsel</span> An optional jQuery selector for the elements on which <strong>event</strong> is bound.
+                If omitted, the selector to which peerbundle was passed is used.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">endsel</span> An optional jQuery selector for the elements on which <strong>endevent</strong>
+ is bound.
+                If omitted, the selector to which peerbundle was passed 
+is used.  When using bundles with mouse events, it is often useful to 
+set
+                <strong>endsel</strong> to $("body"), to ensure that the mouseup is caught even if it occurs outside the initial element.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">sendtime</span> An optional timeout before sending the bundle, even if the <strong>endevent</strong>
+ is not received.
+                For example, if set to 100, the bundle messages will be 
+sent every 100 ms, as long as at least one event was received.
+                If omitted, the bundle will not be sent until the <strong>endevent</strong> is received.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">collapsetime</span> An 
+optional time during which events are discarded.
+                For example, if set to 25, any event occurring within 25
+ seconds of the previous bundled event will be discarded.
+                If omiited, all events are sent.  The <strong>startevent</strong> and <strong>endevent</strong> are always sent.
+            </div>
+            <div class="paramattribute">
+                <span class="paramattributename">timing</span> If true 
+(default), events are timestamped, and the receiver uses timeouts to
+                attempt to replay the events using the same timing that 
+was originally used.  If omitted or false, the events
+                are replayed immediately upon receipt.  Note that the 
+value of timing at the sender controls this behavior.
+                Because of the asynhronous nature of JavaScript and due 
+to network delays, accurate replay of timing is not guaranteed.
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>The Event Object</h1></li>
+        <li class="col2 col5">
+         <p>
+          </p><div class="docsection"></div>
+          <p class="docpara">
+            The peerbind version of bind provides the same event object but contains a couple new fields:
+          </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <span class="fieldname paramname">event.srcPeer</span> null if the event is locally generated, otherwise it contains the guid of the peer that generated the event. 
+                    </div>
+                    <div class="variantparam">   
+                        <span class="fieldname paramname">event.peerData</span>
+ contains the eventData that was passed to the peerbind call on the 
+sender.  For compatibility with previous versions of peerbind, a 
+"change" event will store the new value of the input that was changed if
+ no eventData was included, however, this usage is deprecated in favor 
+of peerInfo.value.
+                    </div>
+                    <div class="variantparam">   
+                        <span class="fieldname paramname">event.peerInfo</span>
+ contains extra information that is filled in by peerbind depending on 
+the type of event.
+                        This is information that would normally be 
+obtained by the client using DOM methods, but would not be available in 
+the distributed environment of peerbind.
+                        <strong>peerInfo</strong> is only guaranteed to be available on the receiver side (event.srcPeer is non null).
+                        <strong>event.peerInfo</strong> is an Object which may contain the following fields:
+                        <div class="paramattribute">
+                            <span class="paramattributename">value</span> If the event was a change event, this will contain the value of the input that was changed.
+                        </div>
+                        <div class="paramattribute">
+                            <span class="paramattributename">currentTargetOffset</span> If the event was a mouse event, this will contain an object with <strong>top</strong> and <strong>left</strong>
+ attributes showing the offset of the currentTarget on the page.
+                            Because different browsers render the page 
+differently, an object may not be at the same location in all browsers, 
+and use of the standard pageX and pageY event attributes
+                            may result in unpredictable behavior.  You 
+can use <strong>event.peerInfo.offset</strong> to normalize the position.
+                        </div>
+                    </div>
+                </div>              
+                </li>
+            </ul>
+          <p></p>
+          <p class="docexample">
+            <span class="examplename"><strong>Example</strong>:</span> Bind the "mouseenter" event for all peers.
+          </p><div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre>$("div").peerbind("mouseenter",function(e) {
+    if ( e.srcPeer )
+        $(this).text(e.srcPeer+" entered.");
+});
+            </pre></div>
+            <div class="codeBottom"></div>
+          <p></p>
+          <p class="docexample">
+            </p><div class="examplehead">
+            <span class="examplename"><strong>Example:</strong></span> Bind the "mouseenter" event for all peers using the conveinience object.
+            </div>
+            <div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre><code>
+$("div").peerbind("mouseenter", {
+    peer: function(e){$(this).text(e.srcPeer+" entered."),
+    local:function(){$(this).text("You entered.")
+});
+            </code></pre></div>
+            <div class="codeBottom"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>Peersets</h1></li>
+        <li class="col2 col5">
+         <p>
+          </p><div class="docsection"></div>
+            <p class="docpara">
+                <a name="peerset"></a>
+                A peerset is the set of people who will receive peer generated events from each other. 
+            </p>
+            <p class="docpara">
+                Peerbind provides several set types. Each of the following set types creates a peerset:
+            </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <span class="fieldname paramname">page (default)</span> All visitors of the exact same URL.
+                    </div>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">domain</span> 
+All visitors of the same domain will receive events generated by each 
+other - Note: This only work for Peerbind pages that are configured to 
+listen for domain.  This mode makes it possible to have a "stats" page 
+that can listen for broadcasted events about visitors... and lots of 
+other neat things.
+                    </div>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">ip</span> All visitors originating from the same network IP address (e.g. 64.23.12.123).
+                    </div>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">geo</span> All visitors originating from approximately the same Longitude and Latitude. (TODO: make the variance configurable)
+                    </div> 
+                    <div class="variantparam">
+                        <span class="fieldname paramname">string</span> 
+All visitors to the current domain who register, using the same 
+"string".  This method is also called "shared-secret" and allows people 
+to hear events by only those who have registered with the same value.
+                    </div>
+                </div>              
+                </li>
+            </ul>
+          <p></p>
+          <p class="docexample">
+            <span class="examplename"><strong>Example</strong>:</span> Bind the "mouseenter" event for all peers on the same domain.
+          </p><div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre>$.fn.peerbind.defaults.type = "domain";
+
+//All users on this domain will now "hear" the mouseenter events.
+$("div").peerbind("mouseenter",function(e) {
+    if ( e.srcPeer )
+        $(this).text(e.srcPeer+" entered.");
+});
+            </pre></div>
+            <div class="codeBottom"></div>
+          <p></p>
+          <p class="docexample">
+            </p><div class="examplehead">
+            <span class="examplename"><strong>Example:</strong></span> Bind the "mouseenter" event for all peers using the shared-secret. (In this case the secret is: "algorithm".)
+            </div>
+            <div class="codeTop spaceTop"></div>
+            <div class="codeMiddle"><pre><code>
+$.fn.peerbind.defaults.type = "string"; 
+$.fn.peerbind.defaults.regstring = "algorithm"; 
+
+//All users who have registered on this domain
+//with the string "algorithm" will "hear" these
+//mouseenter events.
+$("div").peerbind("mouseenter",function(e) {
+    if ( e.srcPeer )
+        $(this).text(e.srcPeer+" entered.");
+});
+            </code></pre></div>
+            <div class="codeBottom"></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>Configuration</h1></li>
+        <li class="col2 col5">
+        <a name="configuration"></a>
+         <p>
+            </p><div class="docsection"></div>
+            <p class="docpara">
+                Peerbind configuration parameters allows developers to control how the feature operates.  
+            </p>
+            <p class="docpara">
+                The configuration parameters are:
+            </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <span class="fieldname paramname">.peerbind.defaults.type</span>
+ the string value representing the type of peerset the visitors of this 
+page should register for to become peerbound.  The full list of strings 
+is available here: .peerbind.types
+                    </div>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">.peerbind.defaults.regstring</span>
+ the string used to create a "channel" of communication.  Warning: 
+Nothing is private that runs through the peerbind server.  Its public 
+nature makes it easy to use and therefore easy to eavesdrop.
+                    </div>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">.peerbind.defaults.endpoint</span>
+ string value of the domain infront of your peerbind server.  By default
+ this value is the public server, "peerbind.com" change it through a bit
+ of configuration like this:
+                    </div>
+                    <p class="docexample">
+                          </p><div class="codeTop spaceTop"></div>
+                          <div class="codeMiddle"><pre>$.fn.peerbind.defaults.endpoint = "mypeerbindserver.com"
+                          </pre></div>
+                          <div class="codeBottom"></div>
+                    <p></p>
+                    <div class="variantparam">
+                        <span class="fieldname paramname">.peerbind.defaults.endpointprefixes</span>
+ array of strings to prefix the value held in "endpoint".  Spreading the
+ peerbind poll calls to a collection of sub-domains prevents avoids the 
+browser connection limit.  By default the endpoint prefixes are: www, 
+www1, www2, www3, www4, www5, www6, www7, www8, www9, www10.  They can 
+be modified like this:
+                    </div>
+                    <p class="docexample">
+                      </p><div class="codeTop spaceTop"></div>
+                      <div class="codeMiddle"><pre><code>
+// Makes peerbind call pb1.peerbind.com, pb2.peerbind.com, etc...
+$.fn.peerbind.defaults.endpointprefixes = ["pb1","pb2","pb3"];
+                      </code></pre></div>
+                      <div class="codeBottom"></div>
+                    <p></p>
+                    <div class="variantparam">
+                        If you don't have the ability to create multiple endpoints.  Clear the endpoint array:
+                    </div>
+                    <p class="docexample">
+                      </p><div class="codeTop spaceTop"></div>
+                      <div class="codeMiddle"><pre><code>
+// Makes peerbind call pb1.peerbind.com, pb2.peerbind.com, etc...
+$.fn.peerbind.defaults.endpointprefixes = [];
+                      </code></pre></div>
+                      <div class="codeBottom"></div>
+                    <p></p>
+                </div>
+                </li>
+            </ul>
+          <p></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>Your Server</h1></li>
+        <li class="col2 col5">
+        <a name="configuration"></a>
+         <p>
+            </p><div class="docsection"></div>
+            <p class="docpara">
+                While peerbind provides a free public server to run 
+against, this server is a generally available resource that provides no 
+guarantees about security, reliability, or anything else.  
+            </p>
+            <p class="docpara">
+                Running your own will give you more control, and possibly reliability.
+            </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <a href="http://peerbind.com/peerbindserver.js">The server code.</a> An Amazon Licensed version of the source you can run on an EC2 Instance.
+                    </div>
+                    <div class="variantparam">
+                        <a href="http://peerbind.com/license.txt">The License</a> The license.
+                    </div>
+                </div>
+                </li>
+            </ul>
+          <p></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>Troubleshooting</h1></li>
+        <li class="col2 col5">
+        <a name="configuration"></a>
+         <p>
+            </p><div class="docsection"></div>
+            <p class="docpara">
+                Peerbind is a new way to think about coding in 
+javascript - below are a few things to watch out for while exploring.
+            </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <span class="fieldname paramname">Mousebundle Trouble - </span>
+ Mousebundle's work by recording and modifying(in playback) the absolute
+ position of an element.  Sometimes the absolute position of an element 
+can be different from one browser to the next.  Even when its the same 
+maker but a different OS - due to the fonts used.  
+                    </div>
+                </div>
+                </li>
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <span class="fieldname paramname">To Solve:</span>
+ Check the "line-height" attribute, and other items that might modify 
+the top or left position of the element.  Once you find the culprit, 
+modify your CSS to lock down the heights or widths to make it function 
+as expected between users.  Another thing to watch for: positions of 
+elements may be different between users due to personlized or generated 
+content - lock down and allocate the space for those or account for them
+ in the element positioning. 
+                    </div>
+                </div>
+                </li>
+            </ul>
+          <p></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="content spaceTop">
+    <div class="top"></div>
+    <div class="middle clearfix">
+      <ul class="2Columns">
+        <li class="col1 col4"><h1>FAQ</h1></li>
+        <li class="col2 col5">
+        <a name="configuration"></a>
+         <p>
+            </p><div class="docsection"></div>
+            <p class="docpara">
+            </p>
+            <ul class="fieldlist">
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <p class="docpara">
+                        <span class="fieldname paramname">Is Peerbind secure? - </span> <span style="color:Maroon;font-weight:bold">No.</span>
+  Peerbind is a new way to get behavior onto a page and therefore a new 
+attack vector. The code controlling behavior is visible to anyone so 
+there is no way to effectively secure it. Please familiarize yourself 
+with javascript security before making any assumptions on behalf of your
+ users.  
+                        </p>
+                        <p class="docpara">
+                        Sanatize data coming from the server as you 
+would any other data from an untrusted source.  Anyone can drop any 
+event into your event handlers.
+                        </p>
+                    </div>
+                </div>
+                </li>
+                <li>
+                <div class="secondaryCall">
+                    <div class="variantparam">
+                        <p class="docpara">
+                        <span class="fieldname paramname">What is Peerbind for? - </span>
+ Peerbind allows javascript developers to get something social and 
+interactive up quickly.  It removes the need to create a server before 
+creating an interactive prototype that can be "felt".
+                        </p>
+                    </div>
+                </div>
+                </li>
+            </ul>
+          <p></p>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(".seeCode").click(function(e) {
+        var page = $(this).attr("whereto"); 
+        if ( page ) 
+            window.open(page,'_blank');
+    }).css({display:"none"});
+  </script>
+  <div class="footer">©2011 A9.com, Inc., an Amazon.com company.</div>
+</div>
+
+
+</body></html>

@@ -1,0 +1,162 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+
+pre{
+    margin-top: 0;
+    margin-bottom: 0;
+    overflow: hidden;
+}
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+.clearfix {
+	display: inline-block;
+}
+html[xmlns] .clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
+
+body{ font-family:Arial, Helvetica, sans-serif; background:#d5d8da; color:#686868; text-shadow: 0 1px 0px #d5d5d7;line-height:16.45px;}
+h1{  font-size:16px; margin:0; padding:0;white-space:nowrap;}
+h2{ font-size:14px; margin:0 0 10px 0 ; padding:0 0 5px 0; border-bottom: 1px dotted #3f3f3f;}
+h3{ font-size:14px; margin:0; padding:0 0 5px 0; display:inline;}
+p{ margin:0; padding:0px 0px 0px 0px;}
+input{ border:1px solid #1491cb; font-size:20px; padding:3px; margin:-5px 0 0 0;}
+.spaceTop{margin-top:10px;}
+
+a{text-shadow:none; text-decoration:none; color:#1491cb;}
+a:hover{text-decoration:underline;}
+
+h3 a{ background: url(../img/bg-download.png) top right no-repeat; padding:0 7px 3px 0; text-align:left;}
+
+.container{ margin-left:auto; margin-right:auto; width:940px;}
+.header{ height:120px; background:url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -378px;}
+.header ul{ margin:0px; padding:0px; list-style:none;}
+.header ul li{margin:0px; padding:0px; float:left;}
+.header ul .logo{ width:350px; height:125px;}
+.header ul .logo div{ width:350px; height:62px; margin:25px 0 0 30px; background:url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -119px;}
+.header ul .download{width:550px; height:62px; float:right;}
+.header ul .download .btn{width:245px; height:59px; float:right; margin:25px 40px 0 0px;}
+.header ul .download .btn a{width:245px; height:59px;  display: block; margin: 0;outline: medium none; padding: 0; background: url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 0px;}
+.header ul .download .btn a:hover{ background: url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -59px;}
+.header ul .download .release{height:11px; width:112px; float:inherit; margin:5px 45px 0 0px; background: url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -182px;}
+
+
+.tryIt{height:44px; text-align:center; background:url(../img/bg-tryit.png) top left no-repeat; text-shadow: none;}
+.tryIt h1{ font-size:20px; color:#ceced0; text-shadow: none;}
+.typeMessage{ font-size:18px; padding-bottom:20px;}
+.social{padding:0 30px 10px 0; text-align:right; font-size:14px; font-weight:bold; text-shadow: 0 1px 0px #d5d5d7;}
+.social > iframe { margin-bottom: -7px; position:relative; top:-1px; }
+
+.content{ margin-left:15px;}
+.top{ height:10px; background:url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -254px; }
+.middle{  background:url(../img/bg-content.jpg) repeat; width:900px; }
+.middle ul{ margin:0; padding:0; list-style:none;}
+.middle ul li{ margin:0; padding:10; float:left;}
+.bottom{ height:10px; background:url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -370px; }
+
+.col1, .col2, .col3 {padding:10px 10px; font-size:14px;}
+
+
+.col1{ width:130px;}
+.col2{ width:470px;}
+.col3{ width:235px;}
+
+.col4{width:130px;}
+.col5{width:728px;}
+
+.otherStuff{ margin:0 ; padding:0;}
+.otherStuff li{margin:0 0 0 0; padding:0 0 0 0px; float:left;}
+.ec2{background: url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -193px; padding:5px 0px 3px 40px;}
+.otherStuff li div{ padding:5px 0 0 40px; font-size:12px;}
+.ec2 a{ font-weight:normal; font-size:14px; padding-left:21px;}
+.iphone{background: url(http://peerbindsite.s3.amazonaws.com/_assets/img/sprites.png) no-repeat; background-position: 0 -218px; padding:5px 0px 15px 40px;}
+.iphone a{ font-weight:normal; font-size:14px; padding-left:20px;}
+
+.codeTop{height:68px; background:url(../img/bg-code-top.png) no-repeat;}
+.codeMiddle{ padding:0px 30px; background:url(../img/bg-code-middle.png) repeat-y;}
+.codeBottom{height:68px; background:url(../img/bg-code-bottom.png) no-repeat; position:relative;}
+.seeCode{cursor:pointer;position:relative; top:-40px; left:601px;}
+.copyCode{display:none;cursor:pointer;position:relative; top:-40px; left:601px;}
+
+.secondaryCall{background:#e5e5e5; padding:10px; margin:0 0 15px 0;}
+
+.footer{ text-align:center; padding:10px 0;}
+
+.funcname{ 
+    border-bottom:1px solid #bcbcbc;
+    font-weight: bold;
+    font-size: 20px;
+    padding:;
+    color:#3d3d3d;
+    padding:10px 0 5px 0;
+   
+}
+.funcdef{ 
+    font-variant: italic;
+    padding:5px 0 10px 0;
+    font-size: 14px;
+}
+.funcvariant{ 
+   border-bottom:1px solid #bcbcbc;
+    font-weight: bold;
+    font-size: 16px;
+    padding:;
+    color:#3d3d3d;
+		padding:15px 0 5px 0;
+}
+.variantparam{ 
+    padding: 8px 4px 4px 4px;
+}
+.paramname{ 
+    font-weight: bold;
+    font-size: 14px;
+    color:#3d3d3d;
+}
+.paramattribute{ 
+    padding: 4px 4px 0px 25px;
+}
+.paramattributename{ 
+    font-weight: bold;
+    font-size: 14px;
+    color:#3d3d3d;
+}
+.fieldlist{
+}
+.fieldname{
+}
+.docTop{
+    border-top:1px solid black;
+}
+.docBottom{
+    border-top:1px solid black;
+}
+.docdiscussion{
+    padding:10px;
+}
+.docsection{
+    font-weight:bold;
+    font-size:large;
+}
+.docpara{padding-bottom:10px;
+}
+.docexample{ padding:10px 0 0 0;
+}
+.examplehead{
+}
+.examplename{
+}
+
+.chatResponse{ padding:5px; border-bottom:1px dotted #a9a9ab; }
+
+.box{ color:#e4e4e4;text-shadow: none;}
